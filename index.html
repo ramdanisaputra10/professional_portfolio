@@ -98,7 +98,7 @@
         margin: auto;
       }
       section {
-        padding: 110px 0;
+        padding: 80px 0;
         position: relative;
       }
       .eyebrow {
@@ -269,7 +269,7 @@
         min-height: 100svh;
         display: flex;
         align-items: center;
-        padding: 120px 0 60px;
+        padding: 72px 0 28px;
         overflow: hidden;
       }
       .big {
@@ -305,8 +305,8 @@
         width: 100%;
       }
       .hl {
-        padding-bottom: 30px;
-        padding-left: 30px;
+        padding-bottom: 0;
+        align-self: center;
       }
       .hl .stat {
         display: inline-flex;
@@ -371,8 +371,11 @@
         width: 100%;
       }
       .pt img {
-        width: 100%;
+        width: auto;
+        max-width: 100%;
+        max-height: calc(100svh - 120px);
         height: auto;
+        margin: auto;
         display: block;
         filter: drop-shadow(0 30px 60px #00000099);
       }
@@ -829,6 +832,74 @@
           gap: 30px;
         }
       }
+      .mqh {
+        margin-top: 70px;
+      }
+      .mq {
+        overflow: hidden;
+        mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      }
+      .mt {
+        display: flex;
+        gap: 20px;
+        width: max-content;
+        animation: mq var(--d, 30s) linear infinite;
+      }
+      .mq:hover .mt,
+      .mq:focus-within .mt {
+        animation-play-state: paused;
+      }
+      @keyframes mq {
+        to {
+          transform: translateX(calc(var(--w) * -1));
+        }
+      }
+      .cc {
+        flex: none;
+        width: 300px;
+        padding: 0;
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 6px;
+        overflow: hidden;
+        color: inherit;
+        font: inherit;
+        cursor: pointer;
+        text-align: left;
+        transition: 0.3s;
+      }
+      .cc:hover,
+      .cc:focus-visible {
+        border-color: var(--ac);
+        transform: translateY(-4px);
+      }
+      .cc img {
+        width: 100%;
+        aspect-ratio: 4/3;
+        object-fit: contain;
+        background: #0a0f2c;
+        display: block;
+      }
+      .cc span {
+        display: block;
+        padding: 12px 14px;
+        font-size: 13px;
+        color: var(--mu);
+      }
+      .cc.nf::before {
+        content: "Add image in /images";
+        display: grid;
+        place-items: center;
+        aspect-ratio: 4/3;
+        background: #0a0f2c;
+        color: var(--mu);
+        font-size: 12px;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .mq {
+          overflow-x: auto;
+        }
+      }
       /* contact */
       #contact {
         text-align: center;
@@ -893,6 +964,10 @@
       #msg {
         font-size: 14px;
         min-height: 20px;
+      }
+      #msg a {
+        color: var(--cy);
+        margin: 0 4px;
       }
       .ok {
         color: #46e6a0;
@@ -1040,6 +1115,8 @@
           <h2>Academic foundation.</h2>
           <div class="ed" id="ed"></div>
         </div>
+        <div class="wrap mqh"><div class="eyebrow">Certificates</div></div>
+        <div class="mq" id="mq" aria-label="Certificates carousel"><div class="mt" id="mt"></div></div>
       </section>
 
       <section id="contact">
@@ -1102,6 +1179,18 @@
           "Business Analysis": ["Requirement Gathering", "Process Modelling (As-Is / To-Be)", "Workflow Mapping", "User Stories", "Use Case Diagrams", "ERD & Database Design", "Prototyping", "Business Reporting", "Business Insights"],
           Tools: ["Microsoft Excel", "Power BI", "Google Sheets", "SQL", "Google BigQuery", "Looker Studio", "Draw.io", "Microsoft Visio", "Figma", "phpMyAdmin", "Python", "Microsoft Word", "Canva", "Google Slides"],
         },
+        certImages: [
+          { t: "DQ Lab — Bootcamp Data Analyst with SQL & Python ", s: "images/cert-dqlab.jpg" },
+          { t: "Syntaxnesia — Short Course Data Analyst", s: "images/cert-syntaxnesia.jpg" },
+          { t: "BNSP Professional Competency — Data Analyst", s: "images/cert-bnsp.jpg" },
+          { t: "English Proficiency Test (TOEFL) — Score 567", s: "images/cert-toefl.jpg" },
+          { t: "Karirnex — Data Analyst Intensive Bootcamp", s: "images/cert-karirnexda.jpg" },
+          { t: "Karirnex — Power BI Dashboard Specialist", s: "images/cert-powerbi.jpg" },
+          { t: "Karirnex — SQL for Data Analytics & Big Query Specialist", s: "images/cert-sql.jpg" },
+          { t: "Karirnex — Microsoft Excel Intensive Bootcamp", s: "images/cert-excel.jpg" },
+          { t: "MySkill — Pivot Table in Microsoft Excel", s: "images/cert-pivot.jpg" },
+          { t: "MySkill — Python Introduction for Data Analysis", s: "images/cert-python.jpg" },
+        ],
         skNote:
           "I utilize these skills and tools when working on projects, whether in the capacity of a Data Analyst (everything from data preparation to the delivery of insights) or as a Business Analyst (requirement gathering, process modelling, workflow mapping to prototyping).",
         projects: [
@@ -1302,6 +1391,41 @@
       const e = D.edu;
       $("#ed").innerHTML =
         `<div><h4>Formal education</h4><h3>${e.school}</h3><p style="margin:6px 0;color:var(--tx)">${e.deg}</p><time style="color:var(--cy)">${e.yrs}</time><p style="color:var(--mu);margin-top:16px"><b style="color:var(--tx)">Related subjects:</b> ${e.subj}</p></div><div><h4>Certifications &amp; training</h4>${e.certs.map(([a, b]) => `<div class="cr"><b>${a}</b><span>${b}</span></div>`).join("")}</div>`;
+
+      // certificates marquee
+      const cs = D.certImages || [],
+        mt = $("#mt");
+      function buildMq() {
+        if (!cs.length) {
+          $("#mq").hidden = true;
+          return;
+        }
+        const cw = 300,
+          gap = 20,
+          w = cs.length * (cw + gap),
+          n = Math.ceil(innerWidth / w) + 1;
+        const one = (x, i, hid) =>
+          `<button class="cc" data-i="${i}"${hid ? ' tabindex="-1" aria-hidden="true"' : ""}><img src="${x.s}" alt="${hid ? "" : x.t}" loading="lazy" onerror="this.parentNode.classList.add('nf');this.remove()"><span>${x.t}</span></button>`;
+        mt.innerHTML = Array.from({ length: n + 1 }, (_, k) => cs.map((x, i) => one(x, i, k > 0)).join("")).join("");
+        mt.style.setProperty("--w", w + "px");
+        mt.style.setProperty("--d", w / 45 + "s");
+      }
+      buildMq();
+      let rt;
+      addEventListener("resize", () => {
+        clearTimeout(rt);
+        rt = setTimeout(buildMq, 200);
+      });
+      mt.onclick = (ev) => {
+        const b = ev.target.closest(".cc");
+        if (!b) return;
+        const x = cs[b.dataset.i];
+        $("#dc").textContent = "Certificate";
+        $("#dbody").innerHTML = `<h3 id="dt">${x.t}</h3><img src="${x.s}" alt="${x.t}">`;
+        dlg.showModal();
+        dlg.scrollTop = 0;
+      };
+
       // contact
       const c = D.contact,
         L = [
