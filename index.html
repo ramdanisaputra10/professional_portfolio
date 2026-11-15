@@ -1361,18 +1361,23 @@
         fd.append("_subject", sub);
         fd.append("_template", "table");
         fd.append("_honey", f._honey.value);
+        const ac = new AbortController(),
+          tm = setTimeout(() => ac.abort(), 10000);
         try {
-          const r = await fetch(D.formEndpoint, { method: "POST", headers: { Accept: "application/json" }, body: fd });
-          const j = await r.json();
-          if (!(r.ok && String(j.success) === "true")) console.warn("FormSubmit:", j);
-          if (r.ok && String(j.success) === "true") {
+          const r = await fetch(D.formEndpoint, { method: "POST", headers: { Accept: "application/json" }, body: fd, signal: ac.signal });
+          const j = await r.json(),
+            ok = r.ok && (String(j.success) === "true" || j.ok === true);
+          if (!ok) console.warn("Form service:", j);
+          if (ok) {
             m.className = "ok";
             m.textContent = "Thank you! Your message has been sent. I will get back to you soon.";
             f.reset();
           } else fb("We could not send it automatically.");
         } catch (err) {
-          console.warn("FormSubmit error:", err);
-          fb("Automatic sending is unavailable right now.");
+          console.warn("Form service error:", err);
+          fb(err.name === "AbortError" ? "Sending is taking too long." : "Automatic sending is unavailable right now.");
+        } finally {
+          clearTimeout(tm);
         }
         btn.disabled = false;
         btn.textContent = "Send message →";
