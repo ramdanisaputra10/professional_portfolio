@@ -1354,20 +1354,25 @@
         btn.textContent = "Sending…";
         m.className = "";
         m.textContent = "";
+        const fd = new FormData();
+        fd.append("name", v.n);
+        fd.append("email", v.e);
+        fd.append("message", v.m);
+        fd.append("_subject", sub);
+        fd.append("_template", "table");
+        fd.append("_honey", f._honey.value);
         try {
-          const r = await fetch(D.formEndpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify({ name: v.n, email: v.e, message: v.m, _subject: sub, _template: "table", _honey: f._honey.value }),
-          });
+          const r = await fetch(D.formEndpoint, { method: "POST", headers: { Accept: "application/json" }, body: fd });
           const j = await r.json();
+          if (!(r.ok && String(j.success) === "true")) console.warn("FormSubmit:", j);
           if (r.ok && String(j.success) === "true") {
             m.className = "ok";
             m.textContent = "Thank you! Your message has been sent. I will get back to you soon.";
             f.reset();
           } else fb("We could not send it automatically.");
-        } catch (_) {
-          fb("Automatic sending is unavailable here.");
+        } catch (err) {
+          console.warn("FormSubmit error:", err);
+          fb("Automatic sending is unavailable right now.");
         }
         btn.disabled = false;
         btn.textContent = "Send message →";
