@@ -1,0 +1,1425 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Ramdani Saputra — Data Analyst & Business Analyst</title>
+    <meta name="description" content="Portfolio of Ramdani Saputra, Information Systems graduate and BNSP-certified Data Analyst. Power BI, SQL, Excel, Looker Studio and business analysis." />
+    <meta property="og:title" content="Ramdani Saputra — Data Analyst & Business Analyst" />
+    <meta property="og:description" content="Transforming data into insights. Turning insights into business decisions." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;700;800&family=Inter:wght@400;500&family=Allura&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #080b1f;
+        --bg2: #0f1538;
+        --card: rgba(255, 255, 255, 0.04);
+        --line: rgba(160, 175, 255, 0.18);
+        --tx: #e9ecff;
+        --mu: #9aa3d1;
+        --ac: #8a9bff;
+        --cy: #5fd4ff;
+        --sf: #fff;
+        --h: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+        --b: "Inter", system-ui, sans-serif;
+        --sc: "Allura", "Brush Script MT", cursive;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #080b1f;
+        }
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: inherit;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: calc(76px + env(safe-area-inset-top, 0px));
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--tx);
+        font: 400 16px/1.65 var(--b);
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background: radial-gradient(60% 50% at 85% 0%, #3a3f9c55, transparent), radial-gradient(50% 40% at 0% 60%, #1d3a7a55, transparent), linear-gradient(180deg, var(--bg), var(--bg2) 60%, var(--bg));
+      }
+      .grid {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: 64px 64px;
+        opacity: 0.35;
+        mask-image: radial-gradient(70% 60% at 50% 30%, #000, transparent);
+      }
+      #glow {
+        position: fixed;
+        width: 520px;
+        height: 520px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: -1;
+        background: radial-gradient(circle, #5f7bff30, transparent 65%);
+        transform: translate(-50%, -50%);
+        left: 50%;
+        top: 30%;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: var(--h);
+        margin: 0;
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+      }
+      a {
+        color: inherit;
+      }
+      .wrap {
+        width: min(1180px, 100% - 40px);
+        margin: auto;
+      }
+      section {
+        padding: 110px 0;
+        position: relative;
+      }
+      .eyebrow {
+        font: 500 13px var(--b);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--cy);
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 18px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: var(--cy);
+      }
+      h2 {
+        font-size: clamp(34px, 5.5vw, 64px);
+        font-weight: 800;
+        margin-bottom: 40px;
+      }
+      .btn {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 14px 24px;
+        border-radius: 999px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        font: 500 15px var(--b);
+        text-decoration: none;
+        cursor: pointer;
+        color: var(--tx);
+        transition: 0.25s;
+      }
+      .btn:hover,
+      .btn:focus-visible {
+        border-color: var(--ac);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 30px #5f7bff30;
+      }
+      .btn.p {
+        background: linear-gradient(135deg, #7f8fff, #4fb8ff);
+        color: #06092a;
+        border: 0;
+        font-weight: 500;
+      }
+      :focus-visible {
+        outline: 2px solid var(--cy);
+        outline-offset: 3px;
+      }
+      /* loader */
+      #load {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        background: var(--bg);
+        display: grid;
+        place-items: center;
+        transition:
+          opacity 0.6s,
+          visibility 0.6s;
+      }
+      #load.x {
+        opacity: 0;
+        visibility: hidden;
+      }
+      #load b {
+        font: 800 64px var(--h);
+        letter-spacing: -0.04em;
+        background: linear-gradient(135deg, #fff, var(--ac));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: pulse 1s ease-in-out infinite alternate;
+      }
+      @keyframes pulse {
+        to {
+          opacity: 0.4;
+          letter-spacing: 0.02em;
+        }
+      }
+      /* nav */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        padding: calc(14px + env(safe-area-inset-top, 0px)) 0 14px;
+        transition: 0.3s;
+      }
+      nav.s {
+        background: rgba(8, 11, 31, 0.82);
+        backdrop-filter: blur(14px);
+        border-bottom: 1px solid var(--line);
+      }
+      nav .wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font: 800 22px var(--h);
+        text-decoration: none;
+      }
+      .logo span {
+        color: var(--ac);
+      }
+      .links {
+        display: flex;
+        gap: 6px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      .links a {
+        display: block;
+        padding: 8px 14px;
+        border-radius: 99px;
+        text-decoration: none;
+        color: var(--mu);
+        font-size: 14px;
+        transition: 0.2s;
+      }
+      .links a:hover,
+      .links a.on {
+        color: #fff;
+        background: var(--card);
+        box-shadow: inset 0 0 0 1px var(--line);
+      }
+      #burger {
+        display: none;
+        background: none;
+        border: 1px solid var(--line);
+        color: #fff;
+        border-radius: 10px;
+        padding: 8px 12px;
+        font-size: 18px;
+      }
+      @media (max-width: 860px) {
+        #burger {
+          display: block;
+        }
+        .links {
+          position: fixed;
+          inset: 0 0 auto 0;
+          top: 0;
+          padding: 80px 20px 24px;
+          flex-direction: column;
+          background: rgba(8, 11, 31, 0.97);
+          transform: translateY(-110%);
+          transition: 0.4s;
+          z-index: -1;
+        }
+        .links.o {
+          transform: none;
+        }
+        .links a {
+          font-size: 20px;
+          padding: 12px;
+        }
+      }
+      /* hero */
+      #hero {
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        padding: 120px 0 60px;
+        overflow: hidden;
+      }
+      .big {
+        position: absolute;
+        left: 50%;
+        top: 48%;
+        transform: translate(-50%, -50%);
+        font: 800 clamp(80px, 19vw, 300px)/1 var(--h);
+        letter-spacing: -0.06em;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(160, 175, 255, 0.3);
+        white-space: nowrap;
+        z-index: 0;
+        user-select: none;
+      }
+      .script {
+        position: absolute;
+        font: 400 clamp(40px, 6vw, 90px) var(--sc);
+        color: var(--cy);
+        top: calc(48% - clamp(80px, 9vw, 150px));
+        left: 50%;
+        transform: translateX(-30%) rotate(-6deg);
+        z-index: 2;
+        text-shadow: 0 0 30px #5fd4ff55;
+      }
+      .hg {
+        position: relative;
+        z-index: 3;
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 20px;
+        align-items: end;
+        width: 100%;
+      }
+      .hl {
+        padding-bottom: 30px;
+        padding-left: 30px;
+      }
+      .hl .stat {
+        display: inline-flex;
+        gap: 10px;
+        align-items: center;
+        padding: 7px 14px;
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        font-size: 13px;
+        color: var(--mu);
+        background: var(--card);
+        margin-bottom: 22px;
+      }
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #46e6a0;
+        box-shadow: 0 0 0 0 #46e6a0aa;
+        animation: ping 2s infinite;
+      }
+      @keyframes ping {
+        70% {
+          box-shadow: 0 0 0 10px transparent;
+        }
+      }
+      .hl h1 {
+        font-size: clamp(40px, 6.2vw, 84px);
+        font-weight: 800;
+      }
+      .hl h1 em {
+        font-style: normal;
+        background: linear-gradient(90deg, var(--ac), var(--cy));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .role {
+        font: 500 clamp(16px, 2vw, 22px) var(--h);
+        color: var(--mu);
+        margin: 14px 0 8px;
+        letter-spacing: 0.02em;
+      }
+      .tag {
+        font: 700 clamp(18px, 2.2vw, 26px)/1.25 var(--h);
+        margin: 18px 0;
+      }
+      .hl p {
+        color: var(--mu);
+        max-width: 54ch;
+      }
+      .cta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+      .pt {
+        position: relative;
+        justify-self: center;
+        max-width: 430px;
+        width: 100%;
+      }
+      .pt img {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 30px 60px #00000099);
+      }
+      .chip {
+        position: absolute;
+        padding: 8px 14px;
+        border-radius: 12px;
+        background: rgba(15, 21, 56, 0.7);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--line);
+        font-size: 12px;
+        animation: fl 6s ease-in-out infinite alternate;
+      }
+      .chip b {
+        display: block;
+        font: 700 18px var(--h);
+        color: var(--cy);
+      }
+      .c1 {
+        left: -6%;
+        top: 22%;
+      }
+      .c2 {
+        right: -4%;
+        top: 46%;
+        animation-delay: -3s;
+      }
+      @keyframes fl {
+        to {
+          transform: translateY(-12px);
+        }
+      }
+      @media (max-width: 860px) {
+        .hg {
+          grid-template-columns: 1fr;
+        }
+        .pt {
+          order: -1;
+          max-width: 300px;
+        }
+        .big {
+          top: 30%;
+        }
+        .script {
+          top: 14%;
+        }
+        .chip {
+          display: none;
+        }
+      }
+      /* about */
+      .ab {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+      }
+      .ab p {
+        color: var(--mu);
+        font-size: 18px;
+      }
+      .lead {
+        font: 700 clamp(22px, 3vw, 34px)/1.2 var(--h) !important;
+        color: var(--tx) !important;
+        letter-spacing: -0.02em;
+      }
+      .chk {
+        list-style: none;
+        padding: 0;
+        margin: 20px 0;
+        display: grid;
+        gap: 10px;
+      }
+      .chk li::before {
+        content: "◆";
+        color: var(--cy);
+        margin-right: 12px;
+        font-size: 11px;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+        margin-top: 60px;
+        background: var(--line);
+        border: 1px solid var(--line);
+      }
+      .stats div {
+        background: var(--bg);
+        padding: 26px 20px;
+      }
+      .stats b {
+        display: block;
+        font: 800 clamp(28px, 4vw, 48px) var(--h);
+        letter-spacing: -0.03em;
+        background: linear-gradient(135deg, #fff, var(--ac));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .stats span {
+        font-size: 13px;
+        color: var(--mu);
+      }
+      @media (max-width: 860px) {
+        .ab {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        .stats {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      /* skills */
+      .tabs {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 30px;
+      }
+      .tabs button {
+        padding: 10px 20px;
+        border-radius: 99px;
+        border: 1px solid var(--line);
+        background: none;
+        color: var(--mu);
+        cursor: pointer;
+        font: 500 14px var(--b);
+        transition: 0.2s;
+      }
+      .tabs button[aria-selected="true"] {
+        background: var(--ac);
+        color: #06092a;
+        border-color: var(--ac);
+      }
+      .sk {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 14px;
+      }
+      .sk div {
+        padding: 22px 18px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 6px;
+        transition: 0.3s;
+        position: relative;
+        overflow: hidden;
+        animation: in 0.5s both;
+      }
+      .sk div::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ac), var(--cy));
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: 0.4s;
+      }
+      .sk div:hover {
+        transform: translateY(-4px);
+        border-color: var(--ac);
+      }
+      .sk div:hover::after {
+        transform: none;
+      }
+      .sk small {
+        display: block;
+        color: var(--cy);
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        margin-bottom: 8px;
+      }
+      @keyframes in {
+        from {
+          opacity: 0;
+          transform: translateY(14px);
+        }
+      }
+      .note {
+        color: var(--mu);
+        font-size: 14px;
+        margin-top: 24px;
+        max-width: 70ch;
+      }
+      /* projects */
+      .pj {
+        display: grid;
+        gap: 28px;
+      }
+      .card {
+        display: grid;
+        grid-template-columns: 1.05fr 1fr;
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 6px;
+        overflow: hidden;
+        text-align: left;
+        color: inherit;
+        cursor: pointer;
+        padding: 0;
+        font: inherit;
+        transition: 0.35s;
+        width: 100%;
+      }
+      .card:nth-child(even) {
+        grid-template-columns: 1fr 1.05fr;
+      }
+      .card:nth-child(even) .im {
+        order: 2;
+      }
+      .card:hover,
+      .card:focus-visible {
+        border-color: var(--ac);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 60px #4a5bff25;
+      }
+      .im {
+        overflow: hidden;
+        background: #0a0f2c;
+        min-height: 260px;
+        position: relative;
+      }
+      .im img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.8s;
+      }
+      .card:hover .im img {
+        transform: scale(1.06);
+      }
+      .im .n {
+        position: absolute;
+        left: 16px;
+        top: 10px;
+        font: 800 56px var(--h);
+        color: #fff;
+        opacity: 0.18;
+      }
+      .bd {
+        padding: 34px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        justify-content: center;
+      }
+      .bd .cat {
+        font-size: 12px;
+        letter-spacing: 0.14em;
+        color: var(--cy);
+        text-transform: uppercase;
+      }
+      .bd h3 {
+        font-size: clamp(22px, 2.6vw, 32px);
+      }
+      .bd p {
+        color: var(--mu);
+        margin: 0;
+      }
+      .tg {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .tg span {
+        font-size: 12px;
+        padding: 4px 10px;
+        border: 1px solid var(--line);
+        border-radius: 99px;
+        color: var(--mu);
+      }
+      .more {
+        color: var(--ac);
+        font-weight: 500;
+      }
+      @media (max-width: 860px) {
+        .card,
+        .card:nth-child(even) {
+          grid-template-columns: 1fr;
+        }
+        .card:nth-child(even) .im {
+          order: 0;
+        }
+        .im {
+          min-height: 200px;
+        }
+      }
+      dialog {
+        width: min(980px, 94vw);
+        max-height: 90vh;
+        border: 1px solid var(--line);
+        background: #0d1233;
+        color: var(--tx);
+        border-radius: 8px;
+        padding: 0;
+        overflow: auto;
+      }
+      dialog::backdrop {
+        background: rgba(3, 5, 18, 0.8);
+        backdrop-filter: blur(6px);
+      }
+      .dh {
+        position: sticky;
+        top: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 24px;
+        background: #0d1233ee;
+        border-bottom: 1px solid var(--line);
+        z-index: 2;
+      }
+      .dh button {
+        background: none;
+        border: 1px solid var(--line);
+        color: #fff;
+        border-radius: 99px;
+        padding: 6px 16px;
+        cursor: pointer;
+      }
+      .db {
+        padding: 28px 24px 36px;
+        display: grid;
+        gap: 26px;
+      }
+      .db img {
+        width: 100%;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+      }
+      .db h3 {
+        font-size: clamp(26px, 4vw, 44px);
+      }
+      .db h4 {
+        font: 700 13px var(--b);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--cy);
+        margin: 0 0 10px;
+      }
+      .db ul {
+        margin: 0;
+        padding-left: 18px;
+        color: var(--mu);
+      }
+      .db li {
+        margin: 6px 0;
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 26px;
+      }
+      .ph {
+        color: #ffcf6b !important;
+        font-style: italic;
+      }
+      @media (max-width: 700px) {
+        .cols {
+          grid-template-columns: 1fr;
+        }
+      }
+      /* timeline */
+      .tl {
+        border-left: 1px solid var(--line);
+        margin-left: 6px;
+        display: grid;
+        gap: 34px;
+      }
+      .tl article {
+        padding-left: 34px;
+        position: relative;
+      }
+      .tl article::before {
+        content: "";
+        position: absolute;
+        left: -6px;
+        top: 8px;
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: var(--cy);
+        box-shadow: 0 0 0 5px #5fd4ff22;
+      }
+      .tl time {
+        font-size: 13px;
+        color: var(--cy);
+        letter-spacing: 0.08em;
+      }
+      .tl h3 {
+        font-size: 24px;
+        margin: 6px 0 2px;
+      }
+      .tl .or {
+        color: var(--mu);
+        font-size: 15px;
+      }
+      .tl ul {
+        color: var(--mu);
+        margin: 10px 0 0;
+        padding-left: 18px;
+      }
+      .tl li {
+        margin: 5px 0;
+      }
+      .ed {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 50px;
+      }
+      .ed h3 {
+        font-size: 28px;
+      }
+      .ed h4 {
+        font: 700 13px var(--b);
+        letter-spacing: 0.14em;
+        color: var(--cy);
+        text-transform: uppercase;
+        margin: 0 0 16px;
+      }
+      .cr {
+        padding: 16px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .cr b {
+        font: 700 17px var(--h);
+      }
+      .cr span {
+        display: block;
+        color: var(--mu);
+        font-size: 14px;
+      }
+      @media (max-width: 860px) {
+        .ed {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+      }
+      /* contact */
+      #contact {
+        text-align: center;
+      }
+      #contact h2 {
+        max-width: 14ch;
+        margin: 0 auto 20px;
+      }
+      #contact .sub {
+        color: var(--mu);
+        max-width: 60ch;
+        margin: 0 auto 36px;
+        font-size: 18px;
+      }
+      .cl {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        margin-bottom: 40px;
+      }
+      form {
+        max-width: 640px;
+        margin: auto;
+        text-align: left;
+        display: grid;
+        gap: 16px;
+        padding: 30px;
+        border: 1px solid var(--line);
+        background: var(--card);
+        border-radius: 8px;
+      }
+      label {
+        font-size: 13px;
+        color: var(--mu);
+        display: grid;
+        gap: 6px;
+      }
+      input,
+      textarea {
+        font: inherit;
+        color: var(--tx);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 12px 14px;
+        width: 100%;
+      }
+      input:focus,
+      textarea:focus {
+        outline: none;
+        border-color: var(--cy);
+      }
+      [aria-invalid="true"] {
+        border-color: #ff7a8a;
+      }
+      .er {
+        color: #ff9aa6;
+        font-size: 12px;
+        min-height: 14px;
+      }
+      #msg {
+        font-size: 14px;
+        min-height: 20px;
+      }
+      .ok {
+        color: #46e6a0;
+      }
+      .bad {
+        color: #ff9aa6;
+      }
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 30px 0;
+      }
+      footer .wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: space-between;
+        align-items: center;
+        color: var(--mu);
+        font-size: 14px;
+      }
+      footer a {
+        margin-right: 14px;
+      }
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: 30px;
+        transform: translate(-50%, 40px);
+        opacity: 0;
+        background: #151c4a;
+        border: 1px solid var(--ac);
+        padding: 12px 20px;
+        border-radius: 99px;
+        z-index: 200;
+        transition: 0.3s;
+        font-size: 14px;
+      }
+      #toast.s {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      .rv {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.8s,
+          transform 0.8s;
+      }
+      .rv.v {
+        opacity: 1;
+        transform: none;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+          scroll-behavior: auto !important;
+        }
+        .rv {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="load" aria-hidden="true"><b>RS</b></div>
+    <div class="grid" aria-hidden="true"></div>
+    <div id="glow" aria-hidden="true"></div>
+    <nav id="nav">
+      <div class="wrap">
+        <a class="logo" href="#hero">RS<span>.</span></a>
+        <button id="burger" aria-label="Open menu" aria-expanded="false">☰</button>
+        <ul class="links" id="links"></ul>
+      </div>
+    </nav>
+
+    <main>
+      <section id="hero">
+        <div class="big" aria-hidden="true">PORTFOLIO</div>
+        <!-- <div class="script" aria-hidden="true">Professional</div> -->
+        <div class="wrap hg">
+          <div class="hl">
+            <div class="stat"><i class="dot"></i><span id="avail"></span></div>
+            <h1>Ramdani <em>Saputra</em></h1>
+            <div class="role">Data Analyst &amp; Business Analyst</div>
+            <div class="tag">Transforming Data Into Insights. Turning Insights Into Business Decisions.</div>
+            <p id="heroDesc"></p>
+            <div class="cta"><a class="btn p" href="#projects">Explore My Work →</a><a class="btn" id="resume" href="#contact">Download Resume ↓</a></div>
+          </div>
+          <div class="pt">
+            <img src="images/portrait.webp" alt="Portrait of Ramdani Saputra" width="430" height="573" />
+            <div class="chip c1"><b>BNSP</b>Certified Data Analyst</div>
+            <div class="chip c2"><b>GPA 3.72</b>Information Systems</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="about">
+        <div class="wrap rv">
+          <div class="eyebrow">01 — About</div>
+          <h2>Data, with a business&nbsp;brain.</h2>
+          <div class="ab">
+            <div><p class="lead" id="lead"></p></div>
+            <div>
+              <p id="aboutP"></p>
+              <ul class="chk" id="chk"></ul>
+            </div>
+          </div>
+          <div class="stats" id="stats"></div>
+        </div>
+      </section>
+
+      <section id="skills">
+        <div class="wrap rv">
+          <div class="eyebrow">02 — Skills &amp; Tools</div>
+          <h2>Toolkit for the full analysis&nbsp;cycle.</h2>
+          <div class="tabs" role="tablist" id="tabs"></div>
+          <div class="sk" id="sk" role="tabpanel"></div>
+          <p class="note" id="skNote"></p>
+        </div>
+      </section>
+
+      <section id="projects">
+        <div class="wrap">
+          <div class="eyebrow rv">03 — Featured Projects</div>
+          <h2 class="rv">From raw tables to&nbsp;decisions.</h2>
+          <div class="pj" id="pj"></div>
+        </div>
+      </section>
+
+      <section id="experience">
+        <div class="wrap rv">
+          <div class="eyebrow">04 — Experience &amp; Leadership</div>
+          <h2>Building systems and&nbsp;teams.</h2>
+          <div class="tl" id="tl"></div>
+        </div>
+      </section>
+
+      <section id="education">
+        <div class="wrap rv">
+          <div class="eyebrow">05 — Education</div>
+          <h2>Academic foundation.</h2>
+          <div class="ed" id="ed"></div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="wrap rv">
+          <div class="eyebrow" style="justify-content: center">06 — Contact</div>
+          <h2>Have a Business Challenge? Let's Turn Data Into Action.</h2>
+          <p class="sub">I'm always open to opportunities, collaborations, and meaningful conversations around data analytics, business intelligence, and business solutions.</p>
+          <div class="cl" id="cl"></div>
+          <form id="f" novalidate>
+            <label>Name<input name="n" autocomplete="name" required /><span class="er" data-e="n"></span></label>
+            <label>Email<input name="e" type="email" autocomplete="email" required /><span class="er" data-e="e"></span></label>
+            <label>Message<textarea name="m" rows="5" required></textarea><span class="er" data-e="m"></span></label>
+            <button class="btn p" type="submit">Send via email app →</button>
+            <div id="msg" role="status" aria-live="polite"></div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap">
+        <div><b style="color: #fff">Ramdani Saputra</b> · Data Analyst | Business Analyst</div>
+        <div id="fl"></div>
+        <div>© <span id="yr"></span> · <a href="#hero" id="top">Back to top ↑</a></div>
+      </div>
+    </footer>
+
+    <dialog id="dlg" aria-labelledby="dt">
+      <div class="dh"><span id="dc"></span><button id="dx" autofocus>Close ✕</button></div>
+      <div class="db" id="dbody"></div>
+    </dialog>
+    <div id="toast" role="status"></div>
+
+    <script>
+      /* ===== CENTRAL DATA — edit here only. Items marked TODO are placeholders. ===== */
+      const D = {
+        name: "Ramdani Saputra",
+        avail: "Open to Data Analyst & Business Analyst roles",
+        formEndpoint: "https://formsubmit.co/ajax/ramdanisaputra004@gmail.com", // after activation, replace with the random alias URL FormSubmit emails you
+        resume: "resume.pdf", // TODO: put the URL/path of your resume PDF, e.g. "/resume.pdf"
+        contact: {
+          email: "ramdanisaputra004@gmail.com",
+          phone: "+62 813 8333 5337",
+          wa: "6281383335337",
+          linkedin: "https://www.linkedin.com/in/ramdanisaputra", // TODO: LinkedIn URL
+          github: "https://github.com/ramdanisaputra10",
+        },
+        hero: "I am an Information Systems graduate with a strong interest in Data Analytics and Business Analysis. I combine analytical thinking, technical capabilities, and business understanding to transform raw data into meaningful insights and actionable solutions.",
+        lead: "My goal is to analyze data to derive insights from trends and phenomena that support strategic business decisions.",
+        about: "I graduated from Information Systems (E-Business concentration) and hold a BNSP professional competency certificate as a Data Analyst. I work across the whole cycle:",
+        strengths: ["Data preparation, cleaning & analysis", "Data visualization & dashboards", "Reporting and business insights", "Requirement gathering & process modelling"],
+        stats: [
+          ["3.72", "GPA, Information Systems"],
+          ["567", "TOEFL score"],
+          ["80+", "Members led as General Chair"],
+          ["+90%", "Event participation increase"],
+        ],
+        skills: {
+          "Data Analytics": ["Microsoft Excel", "Google Sheets", "SQL", "Google BigQuery", "Power BI", "DAX", "Power Query", "Looker Studio", "Python (Pandas)", "Data Cleaning", "Data Visualization", "Interactive Dashboards"],
+          "Business Analysis": ["Requirement Gathering", "Process Modelling (As-Is / To-Be)", "Workflow Mapping", "User Stories", "Use Case Diagrams", "ERD & Database Design", "Prototyping", "Business Reporting", "Business Insights"],
+          Tools: ["Microsoft Excel", "Power BI", "Google Sheets", "SQL", "Google BigQuery", "Looker Studio", "Draw.io", "Microsoft Visio", "Figma", "phpMyAdmin", "Python", "Microsoft Word", "Canva", "Google Slides"],
+        },
+        skNote:
+          "I utilize these skills and tools when working on projects, whether in the capacity of a Data Analyst (everything from data preparation to the delivery of insights) or as a Business Analyst (requirement gathering, process modelling, workflow mapping to prototyping).",
+        projects: [
+          {
+            n: "01",
+            title: "Olist E-Commerce Performance Analytics",
+            cat: "Data Analytics / Business Intelligence",
+            img: "images/project-7.jpg",
+            sum: "End-to-end analytics of sales, customer retention and delivery performance on the Olist e-commerce dataset.",
+            tools: ["Power BI", "DAX", "Power Query", "Excel"],
+            ctx: "E-commerce marketplace data (Olist) covering orders, customers, products, payments, reviews and sellers.",
+            goal: ["Understand sales and product performance", "Measure customer retention", "Evaluate delivery performance"],
+            how: [
+              "Cleaned and joined 8 Olist tables (~98,000 orders) using Excel and Power Query.",
+              "Built a 4-page Power BI dashboard: Executive Overview, Sales & Product Performance, Customer Retention, Delivery Performance.",
+              "Wrote 31 DAX measures: total sales, average order value, completion rate, repeat purchase rate, delivery performance, etc.",
+            ],
+            find: ["Only 3% of customers ordered again.", "6.62% of orders arrived late, mostly in São Paulo."],
+            rec: "TODO: add your business recommendations (e.g. retention and logistics actions).",
+            links: [["GitHub repository", "https://github.com/ramdanisaputra10/Olist_E2E_Data_Analysis.git"]],
+          },
+          {
+            n: "02",
+            title: "Cinema Sales Performance Dashboard",
+            cat: "Data Analytics / Dashboard",
+            img: "images/project-8.jpg",
+            sum: "Power BI dashboard tracking revenue, ticket sales, top movies, payment methods and sales channels.",
+            tools: ["Power BI", "Power Query", "DAX"],
+            ctx: "Cinema transaction data: 1 master table and 6 transaction tables, 20,000 transaction records.",
+            goal: ["Track sales performance", "Understand payment methods and channels"],
+            how: ["Cleaned, joined and modeled the master + transaction data with Power Query.", "Built 16 DAX measures.", "Designed a Sales Performance dashboard."],
+            find: ["QRIS payments accounted for 17.11% of transactions."],
+            rec: "This can guide optimization and promotion on that specific payment method.",
+            links: [["Full documentation", "https://drive.google.com/file/d/1lbB_HmWRk9klmRCFMDjnoQ55cS3Bvxo6/view?usp=drive_link"]],
+          },
+          {
+            n: "03",
+            title: "Profitability Analysis & Sales Trends",
+            cat: "Business Analysis / Reporting",
+            img: "images/project-9.jpg",
+            sum: "Looker Studio dashboard and Q1 presentation identifying what drives profit and sales.",
+            tools: ["Google Sheets", "Looker Studio", "Google Slides"],
+            ctx: "15,000 sales transactions analyzed in Google Sheets.",
+            goal: ["Find profit and sales drivers", "Communicate Q1 results with recommendations"],
+            how: [
+              "Analyzed 15,000 transactions in Google Sheets.",
+              "Built a Looker Studio dashboard with 12 KPIs, incl. revenue, profit margin and monthly sales trend.",
+              "Created a Q1 presentation in Google Slides with business recommendations.",
+            ],
+            find: ["West Java had the most transactions: 3,632 of 15,000."],
+            rec: "Prioritize West Java: Allocate the largest share of the budget (40–45%), as it is the highest contributor to transaction volume and holds significant potential for scaling up.",
+            links: [["Q1 presentation", "https://docs.google.com/presentation/d/17UAr-06CdIIAHUpv8qlHZsBC_NIloaVn3H80uLQX0ZE/edit?usp=sharing"]],
+          },
+          {
+            n: "04",
+            title: "Web-based Boarding House Management System",
+            cat: "Business Analysis / System Design",
+            img: "images/project-10.jpg",
+            sum: "Requirement gathering, process modelling and database design for a boarding house management system.",
+            tools: ["Flowchart", "ERD", "MySQL", "Use Case"],
+            ctx: "Boarding house owners needed a system for room data, occupants and payment transactions.",
+            goal: ["Identify owner problems", "Translate them into functional & non-functional requirements"],
+            how: [
+              "Interviewed boarding house owners to gather requirements.",
+              'Modelled "as-is" and "to-be" process flows and designed an ERD + MySQL structure.',
+              "Wrote user stories, use case diagrams and specifications for administrators and residents.",
+            ],
+            find: ["Many residents are late with their payments, and the financial recording process is carried out manually, which makes it prone to errors."],
+            rec: "implementing a web-based information system to track due dates for each resident and generate automated billing via the WhatsApp API, with integrated digital payments using Midtrans",
+            links: [["Full documentation", "https://drive.google.com/file/d/1y7t4Gy9EfrYbUzgzx3HoL61ct9UK440v/view?usp=drive_link"]],
+          },
+          {
+            n: "05",
+            title: "Sales Data Analysis with SQL in BigQuery",
+            cat: "Additional Project / SQL",
+            img: "images/project-11.jpg",
+            sum: "100,000 electronics sales transactions analyzed with SQL for profitability, product performance and customer behavior.",
+            tools: ["SQL", "Google BigQuery"],
+            ctx: "Electronics store data: sales_transactions and product_master tables.",
+            goal: ["Uncover profitability, product and customer insights"],
+            how: ["Exploration & filtering: WHERE, LIKE, IN, BETWEEN, DISTINCT.", "Aggregation: COUNT, SUM, AVG, GROUP BY, HAVING.", "CASE WHEN segmentation (Large/Medium/Small) and window functions (COUNT/AVG OVER, ROW_NUMBER)."],
+            find: ["Laptop is the largest profit contributor (30.8% of total profit); Accessories fall in the “Small” segment."],
+            rec: "Prioritize stock and promotions for the categories with the highest margins.",
+            links: [],
+          },
+        ],
+        exp: [
+          {
+            t: "Nov 2025 – Feb 2026",
+            h: "Full Stack Web Developer Intern",
+            o: "Diskominfo-SP Provinsi Banten",
+            l: [
+              "Elicited requirements from the product owner and translated them into 9 features with 5 user roles, per BRIN Regulation No. 2/2024 (SPBE).",
+              "Developed a web-based Knowledge Management Information System with PHP and Laravel.",
+              "Worked using Scrum/Agile methodology.",
+            ],
+          },
+          {
+            t: "2024 – 2025",
+            h: "General Chair, Study Program Student Association",
+            o: "Universitas Bina Bangsa",
+            l: [
+              "Led an organization of 80+ active members across 5 divisions, setting yearly goals and tracking progress in quarterly meetings.",
+              "Raised member participation from 40% to 75%, measured by event and meeting attendance, by restructuring work programs and assigning clear roles per division.",
+              "Delivered 4 programs in one term, such as workshop Interpersonal Skill, reaching ~73 participants, which consists of internal members, to train their interpersonal skills.",
+            ],
+          },
+          {
+            t: "2025",
+            h: "Staff, Commission 1 — Student Representative Council (DPM)",
+            o: "Universitas Bina Bangsa",
+            l: [
+              "Formulating the Constitution of the Bina Bangsa University Student Body.",
+              "Formulating and ratifying the Constitution and Bylaws (AD/ART), General Guidelines for Organization (GBHO), and General Guidelines for Work Programs (GBHK) within the UNIBA Student Representative Council (DPM).",
+              "Conducted a general election to elect the student president.",
+            ],
+          },
+        ],
+        edu: {
+          school: "Universitas Bina Bangsa",
+          deg: "Information Systems — E-Business · GPA 3.72",
+          yrs: "2022 – 2026",
+          subj: "Business Management, Business Analysis, Statistics & Probability, Database System, Data Warehouse & Data Mining, ERP, Data Structure, Database Design (SQL)",
+          certs: [
+            ["Professional Competency BNSP — Data Analyst", "LSP Ditekindo · May 2026"],
+            ["English Proficiency Test (TOEFL) — Score 567", "Daily Cipta Dwipa · Feb 2026"],
+            ["Data Analyst Bootcamp Series", "Karirnex · Feb–Sep 2026 — Power BI, SQL/BigQuery, Excel, Python (Pandas)"],
+            ["Short Course Data Analyst", "Syntaxnesia · Apr 2026 — Excel & Looker Studio"],
+          ],
+        },
+      };
+      /* ===== RENDER ===== */
+      const $ = (s) => document.querySelector(s),
+        E = (h) => {
+          const t = document.createElement("template");
+          t.innerHTML = h.trim();
+          return t.content.firstChild;
+        };
+      const secs = [
+        ["about", "About"],
+        ["skills", "Skills"],
+        ["projects", "Projects"],
+        ["experience", "Experience"],
+        ["education", "Education"],
+        ["contact", "Contact"],
+      ];
+      $("#links").innerHTML = secs.map(([i, l]) => `<li><a href="#${i}">${l}</a></li>`).join("");
+      $("#avail").textContent = D.avail;
+      $("#heroDesc").textContent = D.hero;
+      $("#lead").textContent = D.lead;
+      $("#aboutP").textContent = D.about;
+      $("#chk").innerHTML = D.strengths.map((s) => `<li>${s}</li>`).join("");
+      $("#stats").innerHTML = D.stats.map(([a, b]) => `<div><b>${a}</b><span>${b}</span></div>`).join("");
+      $("#skNote").textContent = D.skNote;
+      $("#yr").textContent = new Date().getFullYear();
+      // skills tabs
+      const tabs = $("#tabs");
+      Object.keys(D.skills).forEach((k, i) => {
+        const b = E(`<button role="tab" aria-selected="${i == 0}">${k}</button>`);
+        b.onclick = () => {
+          tabs.querySelectorAll("button").forEach((x) => x.setAttribute("aria-selected", x == b));
+          showSk(k);
+        };
+        tabs.append(b);
+      });
+      function showSk(k) {
+        $("#sk").innerHTML = D.skills[k].map((s, i) => `<div style="animation-delay:${i * 40}ms"><small>${String(i + 1).padStart(2, "0")}</small>${s}</div>`).join("");
+      }
+      showSk("Data Analytics");
+      // projects
+      $("#pj").innerHTML = D.projects
+        .map(
+          (p, i) =>
+            `<button class="card rv" data-i="${i}" aria-haspopup="dialog"><span class="im"><img src="${p.img}" alt="${p.title} dashboard preview" loading="lazy"><span class="n">${p.n}</span></span><span class="bd"><span class="cat">${p.cat}</span><h3>${p.title}</h3><p>${p.sum}</p><span class="tg">${p.tools.map((t) => `<span>${t}</span>`).join("")}</span><span class="more">View case study →</span></span></button>`,
+        )
+        .join("");
+      const dlg = $("#dlg"),
+        ul = (a) => `<ul>${a.map((x) => `<li class="${x.startsWith("TODO") ? "ph" : ""}">${x}</li>`).join("")}</ul>`;
+      document.querySelectorAll(".card").forEach(
+        (c) =>
+          (c.onclick = () => {
+            const p = D.projects[c.dataset.i];
+            $("#dc").textContent = `Project ${p.n} · ${p.cat}`;
+            $("#dbody").innerHTML = `<h3 id="dt">${p.title}</h3><img src="${p.img}" alt="${p.title} preview"><div class="tg">${p.tools.map((t) => `<span>${t}</span>`).join("")}</div>
+<div class="cols"><div><h4>Business context</h4><p style="color:var(--mu);margin:0">${p.ctx}</p></div><div><h4>Analytical objectives</h4>${ul(p.goal)}</div></div>
+<div><h4>Approach &amp; methodology</h4>${ul(p.how)}</div><div class="cols"><div><h4>Key findings</h4>${ul(p.find)}</div><div><h4>Recommendation</h4><p class="${p.rec.startsWith("TODO") ? "ph" : ""}" style="color:var(--mu);margin:0">${p.rec}</p></div></div>
+<div class="cta">${p.links.map(([l, u]) => `<a class="btn p" href="${u}" target="_blank" rel="noopener">${l} ↗</a>`).join("")}</div>`;
+            dlg.showModal();
+            dlg.scrollTop = 0;
+          }),
+      );
+      $("#dx").onclick = () => dlg.close();
+      dlg.onclick = (e) => {
+        if (e.target == dlg) dlg.close();
+      };
+      // experience & education
+      $("#tl").innerHTML = D.exp.map((x) => `<article><time>${x.t}</time><h3>${x.h}</h3><div class="or">${x.o}</div><ul>${x.l.map((l) => `<li>${l}</li>`).join("")}</ul></article>`).join("");
+      const e = D.edu;
+      $("#ed").innerHTML =
+        `<div><h4>Formal education</h4><h3>${e.school}</h3><p style="margin:6px 0;color:var(--tx)">${e.deg}</p><time style="color:var(--cy)">${e.yrs}</time><p style="color:var(--mu);margin-top:16px"><b style="color:var(--tx)">Related subjects:</b> ${e.subj}</p></div><div><h4>Certifications &amp; training</h4>${e.certs.map(([a, b]) => `<div class="cr"><b>${a}</b><span>${b}</span></div>`).join("")}</div>`;
+      // contact
+      const c = D.contact,
+        L = [
+          ["Email", "https://mail.google.com/mail/?view=cm&fs=1&to=" + encodeURIComponent(c.email)],
+          ["WhatsApp", "https://wa.me/" + c.wa],
+          ["GitHub", c.github],
+          ["LinkedIn", c.linkedin],
+        ];
+      const toast = (m) => {
+        const t = $("#toast");
+        t.textContent = m;
+        t.classList.add("s");
+        setTimeout(() => t.classList.remove("s"), 2600);
+      };
+      $("#cl").innerHTML = L.map(([n, u]) => `<a class="btn" ${u ? `href="${u}" target="_blank" rel="noopener"` : `href="#contact" data-na="${n}"`}>${n}</a>`).join("");
+      $("#fl").innerHTML = L.filter((l) => l[1])
+        .map(([n, u]) => `<a href="${u}" target="_blank" rel="noopener">${n}</a>`)
+        .join("");
+      document.querySelectorAll("[data-na]").forEach(
+        (a) =>
+          (a.onclick = (ev) => {
+            ev.preventDefault();
+            toast(a.dataset.na + " link not set yet (edit D.contact)");
+          }),
+      );
+      $("#resume").onclick = (ev) => {
+        if (D.resume) {
+          ev.currentTarget.href = D.resume;
+          ev.currentTarget.target = "_blank";
+        } else {
+          ev.preventDefault();
+          toast("Resume file not set yet (edit D.resume)");
+        }
+      };
+      // form: validation, then opens the visitor's email app (no backend is connected)
+      $("#f").onsubmit = async (ev) => {
+        ev.preventDefault();
+        const f = ev.target,
+          v = { n: f.n.value.trim(), e: f.e.value.trim(), m: f.m.value.trim() };
+        let bad = 0;
+        const chk = { n: v.n.length > 1, e: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.e), m: v.m.length > 9 },
+          txt = { n: "Please enter your name.", e: "Please enter a valid email.", m: "Message must be at least 10 characters." };
+        ["n", "e", "m"].forEach((k) => {
+          f[k].setAttribute("aria-invalid", !chk[k]);
+          document.querySelector(`[data-e=${k}]`).textContent = chk[k] ? "" : txt[k];
+          if (!chk[k]) bad = 1;
+        });
+        const m = $("#msg");
+        if (bad) {
+          m.className = "bad";
+          m.textContent = "Please fix the highlighted fields.";
+          return;
+        }
+        const sub = "Portfolio inquiry from " + v.n,
+          body = v.m + "\n\n— " + v.n + " (" + v.e + ")",
+          gm = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(c.email)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
+        const fb = (why) => {
+          m.className = "ok";
+          m.innerHTML = `${why} Send it with: <a href="${gm}" target="_blank" rel="noopener">Gmail</a> · <a href="mailto:${c.email}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}">Email app</a> · <a href="#" id="cp">Copy message</a>`;
+          $("#cp").onclick = (x) => {
+            x.preventDefault();
+            navigator.clipboard.writeText(`To: ${c.email}\nSubject: ${sub}\n\n${body}`).then(
+              () => toast("Message copied"),
+              () => toast("Copy failed"),
+            );
+          };
+        };
+        const btn = f.querySelector("button");
+        btn.disabled = true;
+        btn.textContent = "Sending…";
+        m.className = "";
+        m.textContent = "";
+        try {
+          const r = await fetch(D.formEndpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", Accept: "application/json" },
+            body: JSON.stringify({ name: v.n, email: v.e, message: v.m, _subject: sub, _template: "table", _honey: f._honey.value }),
+          });
+          const j = await r.json();
+          if (r.ok && String(j.success) === "true") {
+            m.className = "ok";
+            m.textContent = "Thank you! Your message has been sent. I will get back to you soon.";
+            f.reset();
+          } else fb("We could not send it automatically.");
+        } catch (_) {
+          fb("Automatic sending is unavailable here.");
+        }
+        btn.disabled = false;
+        btn.textContent = "Send message →";
+      };
+      // nav, reveal, active section, loader, glow
+      const nav = $("#nav"),
+        lk = $("#links"),
+        bg = $("#burger");
+      bg.onclick = () => {
+        const o = lk.classList.toggle("o");
+        bg.setAttribute("aria-expanded", o);
+        bg.textContent = o ? "✕" : "☰";
+      };
+      lk.onclick = (ev) => {
+        if (ev.target.tagName == "A") {
+          lk.classList.remove("o");
+          bg.textContent = "☰";
+        }
+      };
+      addEventListener("scroll", () => nav.classList.toggle("s", scrollY > 40), { passive: true });
+      const io = new IntersectionObserver(
+        (es) =>
+          es.forEach((x) => {
+            if (x.isIntersecting) {
+              x.target.classList.add("v");
+              io.unobserve(x.target);
+            }
+          }),
+        { threshold: 0.12 },
+      );
+      document.querySelectorAll(".rv").forEach((x) => io.observe(x));
+      const so = new IntersectionObserver(
+        (es) =>
+          es.forEach((x) => {
+            if (x.isIntersecting) document.querySelectorAll(".links a").forEach((a) => a.classList.toggle("on", a.getAttribute("href") == "#" + x.target.id));
+          }),
+        { rootMargin: "-45% 0px -50% 0px" },
+      );
+      secs.forEach(([i]) => so.observe(document.getElementById(i)));
+      addEventListener("load", () => setTimeout(() => $("#load").classList.add("x"), 500));
+      setTimeout(() => $("#load").classList.add("x"), 2500);
+      if (matchMedia("(pointer:fine)").matches && !matchMedia("(prefers-reduced-motion:reduce)").matches) {
+        const g = $("#glow");
+        addEventListener(
+          "pointermove",
+          (ev) => {
+            g.style.left = ev.clientX + "px";
+            g.style.top = ev.clientY + "px";
+          },
+          { passive: true },
+        );
+      }
+    </script>
+  </body>
+</html>
