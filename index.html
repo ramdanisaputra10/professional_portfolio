@@ -1344,7 +1344,7 @@
           gm = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(c.email)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
         const fb = (why) => {
           m.className = "ok";
-          m.innerHTML = `${why} Send it with: <a href="${gm}" target="_blank" rel="noopener">Gmail</a> · <a href="mailto:${c.email}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}">Email app</a> · <a href="#" id="cp">Copy message</a>`;
+          m.innerHTML = `${why} Send it with: <a href="${gm}" target="_blank" rel="noopener">Gmail</a> · <a href="mailto:${c.email}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}">Gmail App</a> · <a href="#" id="cp">Copy message</a>`;
           $("#cp").onclick = (x) => {
             x.preventDefault();
             navigator.clipboard.writeText(`To: ${c.email}\nSubject: ${sub}\n\n${body}`).then(
