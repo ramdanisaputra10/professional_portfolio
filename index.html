@@ -420,7 +420,23 @@
           top: 14%;
         }
         .chip {
-          display: none;
+          padding: 6px 10px;
+          font-size: 11px;
+        }
+        .chip b {
+          font-size: 15px;
+        }
+        .c1 {
+          left: -2%;
+          top: 14%;
+        }
+        .c2 {
+          right: -2%;
+          top: auto;
+          bottom: 22%;
+        }
+        #hero {
+          align-items: flex-start;
         }
       }
       /* about */
@@ -1079,7 +1095,7 @@
           ["3.72", "GPA, Information Systems"],
           ["567", "TOEFL score"],
           ["80+", "Members led as General Chair"],
-          ["+90%", "Event participation increase"],
+          ["+100k", "Data analyzed into meaningful insights"],
         ],
         skills: {
           "Data Analytics": ["Microsoft Excel", "Google Sheets", "SQL", "Google BigQuery", "Power BI", "DAX", "Power Query", "Looker Studio", "Python (Pandas)", "Data Cleaning", "Data Visualization", "Interactive Dashboards"],
@@ -1344,7 +1360,7 @@
           gm = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(c.email)}&su=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}`;
         const fb = (why) => {
           m.className = "ok";
-          m.innerHTML = `${why} Send it with: <a href="${gm}" target="_blank" rel="noopener">Gmail</a> · <a href="mailto:${c.email}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}">Gmail App</a> · <a href="#" id="cp">Copy message</a>`;
+          m.innerHTML = `${why} Send it with: <a href="${gm}" target="_blank" rel="noopener">Gmail</a> · <a href="mailto:${c.email}?subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(body)}">Email app</a> · <a href="#" id="cp">Copy message</a>`;
           $("#cp").onclick = (x) => {
             x.preventDefault();
             navigator.clipboard.writeText(`To: ${c.email}\nSubject: ${sub}\n\n${body}`).then(
