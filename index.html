@@ -306,8 +306,8 @@
       }
       .hl {
         padding-bottom: 0;
-        padding-left: 20;
-        align-self: center;
+        padding-left: 20px;
+        /*align-self: center;*/
       }
       .hl .stat {
         display: inline-flex;
@@ -1165,7 +1165,7 @@
           linkedin: "https://www.linkedin.com/in/ramdanisaputra", // TODO: LinkedIn URL
           github: "https://github.com/ramdanisaputra10",
         },
-        hero: "I am an Information Systems graduate with a strong interest in Data Analytics and Business Analysis. I combine analytical thinking, technical capabilities, and business understanding to transform raw data into meaningful insights and actionable solutions.",
+        hero: "I'm a BNSP-certified Data Analyst with a Bachelor's degree in Business Information Systems (GPA 3.72/4.00). Skilled at collecting, organizing, and analyzing large datasets using SQL, Excel (PivotTable, Power Query, Lookup Formula), and Power BI. I combine analytical thinking, technical capabilities, and business understanding to transform raw data into meaningful insights and actionable solutions.",
         lead: "My goal is to analyze data to derive insights from trends and phenomena that support strategic business decisions.",
         about: "I graduated from Information Systems (E-Business concentration) and hold a BNSP professional competency certificate as a Data Analyst. I work across the whole cycle:",
         strengths: ["Data preparation, cleaning & analysis", "Data visualization & dashboards", "Reporting and business insights", "Requirement gathering & process modelling"],
@@ -1209,8 +1209,11 @@
               "Built a 4-page Power BI dashboard: Executive Overview, Sales & Product Performance, Customer Retention, Delivery Performance.",
               "Wrote 31 DAX measures: total sales, average order value, completion rate, repeat purchase rate, delivery performance, etc.",
             ],
-            find: ["Only 3% of customers ordered again.", "6.62% of orders arrived late, mostly in São Paulo."],
-            rec: "TODO: add your business recommendations (e.g. retention and logistics actions).",
+            find: [
+              "Only 3% of customers ordered again.",
+              "The 'New Customers' curve is nearly identical to the 'Revenue' curve, meaning revenue tracks closely with customer acquisition. If advertising costs rise or acquisition slows down, revenue drops immediately.",
+            ],
+            rec: "Implement a second-purchase program within 30–60 days, along with retention triggers activated once an order has been successfully received. Aim for a repeat purchase rate of 5–6%.",
             links: [["GitHub repository", "https://github.com/ramdanisaputra10/Olist_E2E_Data_Analysis.git"]],
           },
           {
@@ -1261,7 +1264,10 @@
             ],
             find: ["Many residents are late with their payments, and the financial recording process is carried out manually, which makes it prone to errors."],
             rec: "implementing a web-based information system to track due dates for each resident and generate automated billing via the WhatsApp API, with integrated digital payments using Midtrans",
-            links: [["Full documentation", "https://drive.google.com/file/d/1y7t4Gy9EfrYbUzgzx3HoL61ct9UK440v/view?usp=drive_link"]],
+            links: [
+              ["Full documentation", "https://drive.google.com/file/d/1y7t4Gy9EfrYbUzgzx3HoL61ct9UK440v/view?usp=drive_link"],
+              ["Github Repository", "https://github.com/ramdanisaputra10/kost_management.git"],
+            ],
           },
           {
             n: "05",
